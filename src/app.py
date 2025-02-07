@@ -6,7 +6,7 @@ from SubstitutionCipher import SubstitutionCipher
 
 # option2Answer = input('Do you want to use substitution (S) or transposition (T)?')
 
-plainText = input("Enter plaintext message:")
+plain_text = input("Enter plaintext message:")
 
 cipher = SubstitutionCipher()
-print(cipher.encrypt(plainText, 123))
+print(cipher.encrypt(plain_text, 123))

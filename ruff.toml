@@ -1,2 +1,2 @@
 [lint]
-select = ["E", "F", "B", "W292"]
+select = ["E", "F", "B", "N", "W"]
