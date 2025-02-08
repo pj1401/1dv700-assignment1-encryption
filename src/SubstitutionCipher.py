@@ -1,3 +1,6 @@
+import random
+import copy
+
 class SubstitutionCipher:
   standard_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -17,5 +20,8 @@ class SubstitutionCipher:
     return "".join(cipher_text)
 
   def get_cipher_alphabet (self, key):
-    # TODO: This is only a temporary shifted key.
-    return "BCDEFGHIJKLMNOPQRSTUVWXYZA"
+    # Use the key as a seed when shuffling the alphabet.
+    random.seed(key)
+    alphabet_to_shuffle = list(copy.deepcopy(self.standard_alphabet))
+    random.shuffle(alphabet_to_shuffle)
+    return "".join(alphabet_to_shuffle)
