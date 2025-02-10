@@ -38,9 +38,6 @@ class SubstitutionCipher:
     # save readable solutions in a list.
     possible_solutions = []
 
-    print(cipher_text.split())
-    print(re.split('[^a-zA-Z]', cipher_text))
-
     for key in range(256):
       text = self.decrypt_with_key(cipher_text, key)
       if (self.is_readable(text)):
@@ -55,7 +52,9 @@ class SubstitutionCipher:
 
   def is_readable (self, text):
     word_list = map(str.lower, words.words())
-    words_to_test = text.split()
+
+    # Split text and remove non alphabet characters.
+    words_to_test = list(filter(None, re.split('[^a-zA-Z]', text)))
 
     # Compare the words in the text to see if some of them appear in the word list.
     valid_number_of_words = 0
