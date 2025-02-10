@@ -2,6 +2,7 @@ from nltk.corpus import words
 
 import random
 import copy
+import re
 
 class SubstitutionCipher:
   standard_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -37,6 +38,9 @@ class SubstitutionCipher:
     # save readable solutions in a list.
     possible_solutions = []
 
+    print(cipher_text.split())
+    print(re.split('[^a-zA-Z]', cipher_text))
+
     for key in range(256):
       text = self.decrypt_with_key(cipher_text, key)
       if (self.is_readable(text)):
@@ -53,4 +57,11 @@ class SubstitutionCipher:
     word_list = map(str.lower, words.words())
     words_to_test = text.split()
 
-    return all(word.lower() in word_list for word in words_to_test)
+    # Compare the words in the text to see if some of them appear in the word list.
+    valid_number_of_words = 0
+    for word in words_to_test:
+      if (word.lower() in word_list):
+        valid_number_of_words += 1
+
+    # True, if more than 70% of the words in the text are real words.
+    return (valid_number_of_words / len(words_to_test) > 0.7)
