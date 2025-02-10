@@ -1,3 +1,5 @@
+from nltk.corpus import names, words
+
 import random
 import copy
 
@@ -31,10 +33,22 @@ class SubstitutionCipher:
     return "".join(substituted_text)
 
   def decrypt (self, cipher_text):
-    return self.decrypt_with_key(cipher_text, 120)
+    # TODO: Try every key, check if the result is readable, and
+    # save readable solutions in a list.
+    possible_solutions = []
+
+    for key in range(256):
+      text = self.decrypt_with_key(cipher_text, key)
+      if (self.is_readable(text)):
+        possible_solutions.append(text)
+    return possible_solutions[0]
 
   def decrypt_with_key (self, cipher_text, key):
     cipher_alphabet = self.get_cipher_alphabet(key)
 
     return self.substitute_text(
       cipher_text, cipher_alphabet, self.standard_alphabet).lower()
+
+  def is_readable (self, text):
+    words_to_test = text.split()
+    return all(word in words.words() for word in words_to_test)
