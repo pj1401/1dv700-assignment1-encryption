@@ -1,4 +1,4 @@
-from nltk.corpus import names, words
+from nltk.corpus import words
 
 import random
 import copy
@@ -33,7 +33,7 @@ class SubstitutionCipher:
     return "".join(substituted_text)
 
   def decrypt (self, cipher_text):
-    # TODO: Try every key, check if the result is readable, and
+    # Try every key, check if the result is readable, and
     # save readable solutions in a list.
     possible_solutions = []
 
@@ -41,14 +41,16 @@ class SubstitutionCipher:
       text = self.decrypt_with_key(cipher_text, key)
       if (self.is_readable(text)):
         possible_solutions.append(text)
-    return possible_solutions[0]
+    return possible_solutions
 
   def decrypt_with_key (self, cipher_text, key):
     cipher_alphabet = self.get_cipher_alphabet(key)
 
     return self.substitute_text(
-      cipher_text, cipher_alphabet, self.standard_alphabet).lower()
+      cipher_text, cipher_alphabet, self.standard_alphabet).capitalize()
 
   def is_readable (self, text):
+    word_list = map(str.lower, words.words())
     words_to_test = text.split()
-    return all(word in words.words() for word in words_to_test)
+
+    return all(word.lower() in word_list for word in words_to_test)
