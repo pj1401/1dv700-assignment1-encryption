@@ -36,4 +36,5 @@ class SubstitutionCipher:
   def decrypt_with_key (self, cipher_text, key):
     cipher_alphabet = self.get_cipher_alphabet(key)
 
-    return self.substitute_text(cipher_text, cipher_alphabet, self.standard_alphabet)
+    return self.substitute_text(
+      cipher_text, cipher_alphabet, self.standard_alphabet).lower()
